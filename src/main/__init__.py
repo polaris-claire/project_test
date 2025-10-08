@@ -36,8 +36,8 @@ class Grid():
         x,y=value
         x=int(x)
         y=int(y)
-        x=min(x,self.width)
-        y=min(y,self.height)
+        x=max(0,min(x,self.width))
+        y=max(0,min(y,self.height))
         self._current_pos=(x,y)
         """
         current_pos 属性的 setter（作为第 1 题留空）
@@ -52,7 +52,7 @@ class Grid():
 
     def move_forward(self) -> Tuple[int, int]:  # type: ignore
         x,y=self._current_pos
-        if self._current_direction == Facing.Up:
+        if self.current_direction == Facing.UP:
             y+=1
         elif self.current_direction == Facing.DOWN:
             y-=1
@@ -100,6 +100,8 @@ class Grid():
         '''
         if self.current_pos  == self.enemy_pos:
             return True
+        else:
+            return False
         pass  # TODO: Question 4
 
     def record_position(self, step: int) -> None:
@@ -119,7 +121,7 @@ class Grid():
         return self.position_history.get(step,None)
         pass  # TODO: Question 5b
 
-class AdvanceGrid (Grid):
+class AdvancedGrid (Grid):
      def __init__(self,width:int,height:int, enemy_pos:Tuple[int,int]):
          super().__init__(width,height,enemy_pos)
          self.steps:int =0
