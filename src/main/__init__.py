@@ -31,14 +31,14 @@ class Grid():
 
     @current_pos.setter
     def current_pos(self, value: Tuple[int, int]) -> None:
-        if not isinstance(value,tuple) or len(value)!=2:
+        if not isinstance(value, tuple) or len(value) != 2:
             raise TypeError
-        x,y=value
-        x=int(x)
-        y=int(y)
-        x=max(0,min(x,self.width))
-        y=max(0,min(y,self.height))
-        self._current_pos=(x,y)
+        x, y = value
+        x = int(x)
+        y = int(y)
+        x = max(0, min(x, self.width))
+        y = max(0, min(y, self.height))
+        self._current_pos = (x, y)
         """
         current_pos 属性的 setter（作为第 1 题留空）
 
@@ -51,16 +51,16 @@ class Grid():
         pass  # TODO: Question 1
 
     def move_forward(self) -> Tuple[int, int]:  # type: ignore
-        x,y=self._current_pos
+        x, y = self._current_pos
         if self.current_direction == Facing.UP:
-            y+=1
+            y += 1
         elif self.current_direction == Facing.DOWN:
-            y-=1
+            y -= 1
         elif self.current_direction == Facing.RIGHT:
-            x+=1
+            x += 1
         elif self.current_direction == Facing.LEFT:
-            x-=1
-        self.current_pos=(x,y)
+            x -= 1
+        self.current_pos = (x, y)
         return self.current_pos
         '''
         让机器人向当前方向走一格
@@ -75,10 +75,10 @@ class Grid():
         让机器人逆时针转向
         返回一个新方向 (Facing.UP/DOWN/LEFT/RIGHT)
         '''
-        directions=[Facing.RIGHT,Facing.UP,Facing.LEFT,Facing.DOWN]
-        current_ind=directions.index(self.current_direction)
-        new_ind=(current_ind+1)%4
-        self.current_direction=directions[new_ind]
+        directions = [Facing.RIGHT, Facing.UP, Facing.LEFT, Facing.DOWN]
+        current_ind = directions.index(self.current_direction)
+        new_ind = (current_ind+1) % 4
+        self.current_direction = directions[new_ind]
         return self.current_direction
         pass  # TODO: Question 3a
 
@@ -86,10 +86,10 @@ class Grid():
         '''
         让机器人顺时针转向
         '''
-        directions=[Facing.RIGHT,Facing.DOWN,Facing.LEFT,Facing.UP]
-        current_ind=directions.index(self.current_direction)
-        new_ind=(current_ind + 1) %4
-        self.current_direction=directions[new_ind]
+        directions = [Facing.RIGHT, Facing.DOWN, Facing.LEFT, Facing.UP]
+        current_ind = directions.index(self.current_direction)
+        new_ind = (current_ind + 1) % 4
+        self.current_direction = directions[new_ind]
         return self.current_direction
 
         pass  # TODO: Question 3b
@@ -98,7 +98,7 @@ class Grid():
         '''
         如果找到敌人（机器人和敌人坐标一致），就返回true
         '''
-        if self.current_pos  == self.enemy_pos:
+        if self.current_pos == self.enemy_pos:
             return True
         else:
             return False
@@ -118,22 +118,26 @@ class Grid():
         从 position_history 字典中获取指定步数的坐标
         如果该步数不存在，返回 None
         '''
-        return self.position_history.get(step,None)
+        return self.position_history.get(step, None)
         pass  # TODO: Question 5b
 
-class AdvancedGrid (Grid):
-     def __init__(self,width:int,height:int, enemy_pos:Tuple[int,int]):
-         super().__init__(width,height,enemy_pos)
-         self.steps:int =0
 
-     def move_forward(self) -> Tuple[int,int]:
-         new_pos=super().move_forward()
-         self.steps+=1
-         return new_pos
-     def distance_to_enemy(self) ->int :
-         x1,y1=self.current_pos
-         x2,y2=self.enemy_pos
-         return abs(x1-x2) + abs (y1-y2)
+class AdvancedGrid (Grid):
+    def __init__(self, width: int, height: int, enemy_pos: Tuple[int, int]):
+        super().__init__(width, height, enemy_pos)
+        self.steps: int = 0
+
+    def move_forward(self) -> Tuple[int, int]:
+        new_pos = super().move_forward()
+        self.steps += 1
+        return new_pos
+
+    def distance_to_enemy(self) -> int:
+        x1, y1 = self.current_pos
+        x2, y2 = self.enemy_pos
+        return abs(x1-x2) + abs(y1-y2)
+
+
 """
 在这里你需要实现 AdvancedGrid 类，继承自 Grid 类，并添加以下功能：
 1. 追踪移动步数
