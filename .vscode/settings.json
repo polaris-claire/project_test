@@ -49,8 +49,5 @@
         "webassets"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": [
-        "."
-    ]
+    "python.testing.pytestEnabled": true
 }
